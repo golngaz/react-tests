@@ -1,0 +1,39 @@
+
+body {
+    background-color: #676767 !important;
+}
+
+#app {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+    @import "./table.scss";
+}
+
+.tic-tac-toe {
+    margin-top: 20px;
+
+    $caseWith: 70px;
+    $nbCasesPerRow: 3;
+
+    width: $caseWith * $nbCasesPerRow + 2; // 2 la bordure
+    height: $caseWith * $nbCasesPerRow + 2;
+
+    .plat {
+        border: 1px solid black;
+        line-height: $caseWith - 2;
+    }
+
+
+    .case {
+        vertical-align: middle;
+        text-align: center;
+        display: inline-block;
+        width: $caseWith;
+        height: $caseWith;
+        border: 1px solid black;
+    }
+}
+
