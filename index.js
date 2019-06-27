@@ -27,7 +27,7 @@ class App extends React.Component {
                     <Customers customers={customers}/>
                 </div>
                 <div>
-                    <TicTacToe /><TicTacToe/>
+                    <TicTacToe />
                 </div>
             </div>
         )

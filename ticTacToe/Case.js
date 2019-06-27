@@ -12,9 +12,9 @@ class Case extends React.Component {
         )
     }
 
-    clicked(event) {
+    clicked() {
         if (this.props.value === 0) {
-            this.props.onClick('cocou');
+            this.props.onClick();
         }
     }
 

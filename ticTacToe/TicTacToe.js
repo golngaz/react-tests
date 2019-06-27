@@ -5,9 +5,7 @@ class TicTacToe extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {cases : Array(9).fill(0), player: 1}
-
-        this.caseChecked = this.caseChecked.bind(this)
+        this.state = {cases : Array(9).fill(0), player: 1, winner: 0}
     }
 
     render() {
@@ -16,19 +14,69 @@ class TicTacToe extends React.Component {
                 Joueur : {this.state.player}
                 <div className="plat">
                     {this.state.cases.map((v, i) => (
-                        <Case onClick={(salt) => this.caseChecked(i, salt)} key={i} value={v}/>
+                        <Case onClick={() => this.caseChecked(i)} key={i} value={v}/>
                     ))}
                 </div>
+                {this.renderWinner()}
             </div>
 
         )
     }
 
-    caseChecked(caseId, salt) {
-        this.setState(function(state) {
-            state.cases[caseId] = state.player;
-            return {cases: state.cases, player: 3 - state.player}
-        });
+    caseChecked(caseId) {
+        if (this.winner)
+            return;
+
+        let cases = this.state.cases.slice();
+        cases[caseId] = this.state.player;
+
+        this.setState({cases: cases, player: 3 - this.state.player})
+
+        this.winner = TicTacToe.findWinner(cases)
+    }
+
+    static findWinner(cases) {
+        return TicTacToe.findWinnerLine(cases) || TicTacToe.findWinnerColumn(cases) || TicTacToe.findWinnerDiagonals(cases)
+    }
+
+    static findWinnerLine(cases) {
+        for (let line = 0; line < 3; line++) {
+            if (cases[line * 3] === cases[line * 3 + 1] && cases[line * 3 + 1] === cases[line * 3 + 2]) {
+                return cases[line * 3]
+            }
+        }
+
+        return 0
+    }
+
+    static findWinnerColumn(cases) {
+        for (let column = 0; column < 3; column++) {
+            if (cases[column] === cases[column + 3] && cases[column + 3] === cases[column + 6]) {
+                return cases[column]
+            }
+        }
+
+        return 0
+    }
+
+    static findWinnerDiagonals(cases) {
+        if (cases[0] === cases[4] && cases[4] === cases[8]) {
+            return cases[4]
+        }
+
+        if (cases[2] === cases[4] && cases[4] === cases[6]) {
+            return cases[4]
+        }
+
+        return 0
+    }
+
+    renderWinner() {
+        if (this.winner) {
+            return (
+                <span>Le joueur {this.winner} à gagné !</span>
+            )
+        }
     }
 }
 

@@ -2473,9 +2473,9 @@ function (_React$Component) {
     }
   }, {
     key: "clicked",
-    value: function clicked(event) {
+    value: function clicked() {
       if (this.props.value === 0) {
-        this.props.onClick('cocou');
+        this.props.onClick();
       }
     }
   }, {
@@ -2520,9 +2520,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2541,9 +2541,9 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TicTacToe).call(this, props));
     _this.state = {
       cases: Array(9).fill(0),
-      player: 1
+      player: 1,
+      winner: 0
     };
-    _this.caseChecked = _this.caseChecked.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2558,24 +2558,72 @@ function (_React$Component) {
         className: "plat"
       }, this.state.cases.map(function (v, i) {
         return _react.default.createElement(_Case.default, {
-          onClick: function onClick(salt) {
-            return _this2.caseChecked(i, salt);
+          onClick: function onClick() {
+            return _this2.caseChecked(i);
           },
           key: i,
           value: v
         });
-      })));
+      })), this.renderWinner());
     }
   }, {
     key: "caseChecked",
-    value: function caseChecked(caseId, salt) {
-      this.setState(function (state) {
-        state.cases[caseId] = state.player;
-        return {
-          cases: state.cases,
-          player: 3 - state.player
-        };
+    value: function caseChecked(caseId) {
+      if (this.winner) return;
+      var cases = this.state.cases.slice();
+      cases[caseId] = this.state.player;
+      this.setState({
+        cases: cases,
+        player: 3 - this.state.player
       });
+      this.winner = TicTacToe.findWinner(cases);
+    }
+  }, {
+    key: "renderWinner",
+    value: function renderWinner() {
+      if (this.winner) {
+        return _react.default.createElement("span", null, "Le joueur ", this.winner, " \xE0 gagn\xE9 !");
+      }
+    }
+  }], [{
+    key: "findWinner",
+    value: function findWinner(cases) {
+      return TicTacToe.findWinnerLine(cases) || TicTacToe.findWinnerColumn(cases) || TicTacToe.findWinnerDiagonals(cases);
+    }
+  }, {
+    key: "findWinnerLine",
+    value: function findWinnerLine(cases) {
+      for (var line = 0; line < 3; line++) {
+        if (cases[line * 3] === cases[line * 3 + 1] && cases[line * 3 + 1] === cases[line * 3 + 2]) {
+          return cases[line * 3];
+        }
+      }
+
+      return 0;
+    }
+  }, {
+    key: "findWinnerColumn",
+    value: function findWinnerColumn(cases) {
+      for (var column = 0; column < 3; column++) {
+        if (cases[column] === cases[column + 3] && cases[column + 3] === cases[column + 6]) {
+          return cases[column];
+        }
+      }
+
+      return 0;
+    }
+  }, {
+    key: "findWinnerDiagonals",
+    value: function findWinnerDiagonals(cases) {
+      if (cases[0] === cases[4] && cases[4] === cases[8]) {
+        return cases[4];
+      }
+
+      if (cases[2] === cases[4] && cases[4] === cases[6]) {
+        return cases[4];
+      }
+
+      return 0;
     }
   }]);
 
@@ -26227,7 +26275,7 @@ function (_React$Component) {
         className: "list-customers"
       }, _react.default.createElement(_customers.default, {
         customers: customers
-      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null), _react.default.createElement(_TicTacToe.default, null)));
+      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null)));
     }
   }]);
 
@@ -26263,7 +26311,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43211" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44095" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
