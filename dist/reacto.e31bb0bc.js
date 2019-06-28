@@ -2391,13 +2391,9 @@ function (_React$Component) {
   _inherits(Customers, _React$Component);
 
   function Customers(props) {
-    var _this;
-
     _classCallCheck(this, Customers);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Customers).call(this, props));
-    var a = Infinity;
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Customers).call(this, props));
   }
 
   _createClass(Customers, [{
@@ -2440,9 +2436,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2454,21 +2450,21 @@ function (_React$Component) {
   _inherits(Case, _React$Component);
 
   function Case(props) {
-    var _this;
-
     _classCallCheck(this, Case);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Case).call(this, props));
-    _this.clicked = _this.clicked.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Case).call(this, props));
   }
 
   _createClass(Case, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       return _react.default.createElement("div", {
         className: "case",
-        onClick: this.clicked
+        onClick: function onClick() {
+          return _this.clicked();
+        }
       }, this.display());
     }
   }, {
@@ -2588,42 +2584,15 @@ function (_React$Component) {
   }], [{
     key: "findWinner",
     value: function findWinner(cases) {
-      return TicTacToe.findWinnerLine(cases) || TicTacToe.findWinnerColumn(cases) || TicTacToe.findWinnerDiagonals(cases);
-    }
-  }, {
-    key: "findWinnerLine",
-    value: function findWinnerLine(cases) {
-      for (var line = 0; line < 3; line++) {
-        if (cases[line * 3] === cases[line * 3 + 1] && cases[line * 3 + 1] === cases[line * 3 + 2]) {
-          return cases[line * 3];
+      var matrixWin = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+      var winner = 0;
+      matrixWin.some(function (matrix) {
+        if (cases[matrix[0]] !== 0 && cases[matrix[0]] === cases[matrix[1]] && cases[matrix[1]] === cases[matrix[2]]) {
+          winner = cases[matrix[0]];
+          return true;
         }
-      }
-
-      return 0;
-    }
-  }, {
-    key: "findWinnerColumn",
-    value: function findWinnerColumn(cases) {
-      for (var column = 0; column < 3; column++) {
-        if (cases[column] === cases[column + 3] && cases[column + 3] === cases[column + 6]) {
-          return cases[column];
-        }
-      }
-
-      return 0;
-    }
-  }, {
-    key: "findWinnerDiagonals",
-    value: function findWinnerDiagonals(cases) {
-      if (cases[0] === cases[4] && cases[4] === cases[8]) {
-        return cases[4];
-      }
-
-      if (cases[2] === cases[4] && cases[4] === cases[6]) {
-        return cases[4];
-      }
-
-      return 0;
+      });
+      return winner;
     }
   }]);
 
@@ -2632,7 +2601,138 @@ function (_React$Component) {
 
 var _default = TicTacToe;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./Case":"ticTacToe/Case.js"}],"node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Case":"ticTacToe/Case.js"}],"BasicForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var BasicForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(BasicForm, _React$Component);
+
+  function BasicForm(props) {
+    var _this;
+
+    _classCallCheck(this, BasicForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BasicForm).call(this, props));
+    _this.state = {
+      value: ''
+    };
+    return _this;
+  }
+
+  _createClass(BasicForm, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react.default.createElement("div", null, _react.default.createElement("span", null, this.renderResult()), _react.default.createElement("input", {
+        type: "text",
+        onChange: function onChange(e) {
+          return _this2.inputChanged(e);
+        }
+      }));
+    }
+  }, {
+    key: "renderResult",
+    value: function renderResult() {
+      return this.state.value.split('').reverse().join('');
+    }
+  }, {
+    key: "inputChanged",
+    value: function inputChanged(e) {
+      this.setState({
+        value: e.currentTarget.value
+      });
+    }
+  }]);
+
+  return BasicForm;
+}(_react.default.Component);
+
+exports.default = BasicForm;
+},{"react":"node_modules/react/index.js"}],"PasswordChecker.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var PasswordChecker =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PasswordChecker, _React$Component);
+
+  function PasswordChecker(props) {
+    _classCallCheck(this, PasswordChecker);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PasswordChecker).call(this, props));
+  }
+
+  _createClass(PasswordChecker, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "form-password"
+      });
+    }
+  }]);
+
+  return PasswordChecker;
+}(_react.default.Component);
+
+exports.default = PasswordChecker;
+},{"react":"node_modules/react/index.js"}],"node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -26213,6 +26313,10 @@ var _customers = _interopRequireDefault(require("./customers"));
 
 var _TicTacToe = _interopRequireDefault(require("./ticTacToe/TicTacToe"));
 
+var _BasicForm = _interopRequireDefault(require("./BasicForm"));
+
+var _PasswordChecker = _interopRequireDefault(require("./PasswordChecker"));
+
 require("./style.scss");
 
 var _react = _interopRequireDefault(require("react"));
@@ -26275,7 +26379,7 @@ function (_React$Component) {
         className: "list-customers"
       }, _react.default.createElement(_customers.default, {
         customers: customers
-      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null)));
+      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, _react.default.createElement(_BasicForm.default, null)), _react.default.createElement("div", null, _react.default.createElement(_PasswordChecker.default, null)));
     }
   }]);
 
@@ -26283,7 +26387,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"./clock":"clock.js","./customers":"customers.js","./ticTacToe/TicTacToe":"ticTacToe/TicTacToe.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./clock":"clock.js","./customers":"customers.js","./ticTacToe/TicTacToe":"ticTacToe/TicTacToe.js","./BasicForm":"BasicForm.js","./PasswordChecker":"PasswordChecker.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -26311,7 +26415,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44095" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42593" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

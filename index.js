@@ -1,6 +1,8 @@
 import Clock from './clock'
 import Customers from './customers'
 import TicTacToe from './ticTacToe/TicTacToe'
+import BasicForm from './BasicForm'
+import PasswordChecker from './PasswordChecker'
 import './style.scss'
 
 import React from 'react'
@@ -9,8 +11,8 @@ import "bootstrap/dist/css/bootstrap.css"
 
 class App extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {};
+        super(props)
+        this.state = {}
     }
 
     render() {
@@ -28,6 +30,14 @@ class App extends React.Component {
                 </div>
                 <div>
                     <TicTacToe />
+                </div>
+
+                <br /><br />
+                <div>
+                    <BasicForm />
+                </div>
+                <div>
+                    <PasswordChecker />
                 </div>
             </div>
         )

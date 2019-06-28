@@ -1,5 +1,5 @@
-import React from 'react';
-import Case from './Case';
+import React from 'react'
+import Case from './Case'
 
 class TicTacToe extends React.Component {
     constructor(props) {
@@ -25,10 +25,10 @@ class TicTacToe extends React.Component {
 
     caseChecked(caseId) {
         if (this.winner)
-            return;
+            return
 
-        let cases = this.state.cases.slice();
-        cases[caseId] = this.state.player;
+        let cases = this.state.cases.slice()
+        cases[caseId] = this.state.player
 
         this.setState({cases: cases, player: 3 - this.state.player})
 
@@ -36,39 +36,30 @@ class TicTacToe extends React.Component {
     }
 
     static findWinner(cases) {
-        return TicTacToe.findWinnerLine(cases) || TicTacToe.findWinnerColumn(cases) || TicTacToe.findWinnerDiagonals(cases)
-    }
+        const matrixWin = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
 
-    static findWinnerLine(cases) {
-        for (let line = 0; line < 3; line++) {
-            if (cases[line * 3] === cases[line * 3 + 1] && cases[line * 3 + 1] === cases[line * 3 + 2]) {
-                return cases[line * 3]
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+
+            [0, 4, 8],
+            [2, 4, 6],
+        ]
+
+        let winner = 0
+
+        matrixWin.some(function(matrix) {
+            if (cases[matrix[0]] !== 0 && cases[matrix[0]] === cases[matrix[1]] && cases[matrix[1]] === cases[matrix[2]]) {
+                winner = cases[matrix[0]]
+                return true
             }
-        }
+        })
 
-        return 0
-    }
+        return winner
 
-    static findWinnerColumn(cases) {
-        for (let column = 0; column < 3; column++) {
-            if (cases[column] === cases[column + 3] && cases[column + 3] === cases[column + 6]) {
-                return cases[column]
-            }
-        }
-
-        return 0
-    }
-
-    static findWinnerDiagonals(cases) {
-        if (cases[0] === cases[4] && cases[4] === cases[8]) {
-            return cases[4]
-        }
-
-        if (cases[2] === cases[4] && cases[4] === cases[6]) {
-            return cases[4]
-        }
-
-        return 0
     }
 
     renderWinner() {
