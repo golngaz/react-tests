@@ -39,4 +39,27 @@ body {
 
 .form-password {
     margin-top: 50px;
+
+    input{
+        &.ok {
+            border: 3px solid #08c309;
+        }
+
+        &.neutral {
+            border: initial;
+        }
+
+        &.warning {
+            border: 3px solid orange;
+        }
+
+        &.danger {
+            border: 3px solid red;
+        }
+
+    }
+
+    .load-password {
+        width: 40px;
+    }
 }

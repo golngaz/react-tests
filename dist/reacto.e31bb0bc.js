@@ -2708,23 +2708,147 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var dangerLevels = {
+  ok: 'ok',
+  neutral: 'neutral',
+  warning: 'warning',
+  danger: 'danger'
+};
+
 var PasswordChecker =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(PasswordChecker, _React$Component);
 
   function PasswordChecker(props) {
+    var _this;
+
     _classCallCheck(this, PasswordChecker);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PasswordChecker).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PasswordChecker).call(this, props));
+    _this.state = {
+      dangerLevel: dangerLevels.neutral,
+      value: '',
+      displayPassword: false
+    };
+    _this.checkPasswordTimeout = null;
+    return _this;
   }
 
   _createClass(PasswordChecker, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.checkPassword(this.state.value);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react.default.createElement("div", {
         className: "form-password"
+      }, _react.default.createElement("input", {
+        type: this.state.displayPassword ? 'text' : 'password',
+        value: this.state.value,
+        className: this.state.dangerLevel,
+        onChange: function onChange(e) {
+          return _this2.checkPassword(e.currentTarget.value);
+        }
+      }), _react.default.createElement("img", {
+        alt: "",
+        className: "load-password",
+        style: this.state.dangerLevel === dangerLevels.neutral && this.state.value ? {} : {
+          display: 'none'
+        },
+        src: "https://www.voya.ie/Interface/Icons/LoadingBasketContents.gif"
+      }), _react.default.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState({
+            displayPassword: !_this2.state.displayPassword
+          });
+        }
+      }, this.state.displayPassword ? 'Masquer' : 'Afficher'));
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword(value) {
+      var _this3 = this;
+
+      this.setState({
+        value: value
       });
+      value = value.trim();
+
+      if (!value) {
+        this.setState({
+          dangerLevel: dangerLevels.neutral
+        });
+        return;
+      }
+
+      if (this.checkPasswordTimeout) {
+        clearTimeout(this.checkPasswordTimeout);
+        this.checkPasswordTimeout = null;
+      }
+
+      this.setState({
+        dangerLevel: dangerLevels.neutral
+      });
+      this.checkPasswordTimeout = setTimeout(function () {
+        return _this3.calculateDangerLevel(value);
+      }, 1000);
+    }
+  }, {
+    key: "calculateDangerLevel",
+    value: function calculateDangerLevel(value) {
+      var clout = 0;
+      var flagMaj = false;
+      var flagNumber = false;
+      var flagElse = false;
+      var flagComplex = false;
+      value.split('').forEach(function (c) {
+        if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(c) !== -1) {
+          if (!flagMaj) {
+            clout += 8;
+            flagMaj = true;
+          }
+        } else if (!isNaN(c)) {
+          if (!flagNumber) {
+            clout += 8;
+            flagNumber = true;
+          }
+        } else if ('abcdefghijklmnopqrstuvwxyz '.indexOf(c) !== -1) {
+          if (!flagElse) {
+            clout += 8;
+            flagElse = true;
+          }
+        } else if (!flagComplex) {
+          clout += 12;
+          flagComplex = true;
+        }
+
+        clout += 1;
+      });
+
+      if (value.length < 6) {
+        clout -= 11;
+      }
+
+      console.log(clout);
+
+      if (clout > 31) {
+        this.setState({
+          dangerLevel: dangerLevels.ok
+        });
+      } else if (clout > 10) {
+        this.setState({
+          dangerLevel: dangerLevels.warning
+        });
+      } else {
+        this.setState({
+          dangerLevel: dangerLevels.danger
+        });
+      }
     }
   }]);
 
@@ -26415,7 +26539,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42593" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46391" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
