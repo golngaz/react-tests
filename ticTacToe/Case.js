@@ -28,4 +28,9 @@ class Case extends React.Component {
     }
 }
 
+Case.defaultProps = {
+    // for dynamics default values @see https://frontarm.com/james-k-nelson/conditionally-set-default-props/
+    onClick: () => {}
+}
+
 export default Case

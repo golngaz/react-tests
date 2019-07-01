@@ -2490,6 +2490,10 @@ function (_React$Component) {
   return Case;
 }(_react.default.Component);
 
+Case.defaultProps = {
+  // for dynamics default values @see https://frontarm.com/james-k-nelson/conditionally-set-default-props/
+  onClick: function onClick() {}
+};
 var _default = Case;
 exports.default = _default;
 },{"react":"node_modules/react/index.js"}],"ticTacToe/TicTacToe.js":[function(require,module,exports) {
@@ -2535,11 +2539,7 @@ function (_React$Component) {
     _classCallCheck(this, TicTacToe);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TicTacToe).call(this, props));
-    _this.state = {
-      cases: Array(9).fill(0),
-      player: 1,
-      winner: 0
-    };
+    _this.state = TicTacToe.defaultState();
     return _this;
   }
 
@@ -2550,46 +2550,89 @@ function (_React$Component) {
 
       return _react.default.createElement("div", {
         className: "tic-tac-toe"
-      }, "Joueur : ", this.state.player, _react.default.createElement("div", {
+      }, _react.default.createElement("span", null, "Joueur : ", this.state.player), _react.default.createElement("div", {
+        className: "board"
+      }, _react.default.createElement("div", {
         className: "plat"
-      }, this.state.cases.map(function (v, i) {
+      }, this.state.cases.map(function (value, i) {
         return _react.default.createElement(_Case.default, {
           onClick: function onClick() {
             return _this2.caseChecked(i);
           },
           key: i,
-          value: v
+          value: value
         });
-      })), this.renderWinner());
+      })), _react.default.createElement("div", {
+        className: "history"
+      }, this.state.history.map(function (historyLine, i) {
+        return _react.default.createElement("div", {
+          key: i,
+          className: "history-line",
+          onClick: function onClick() {
+            return _this2.restoreHistoryLine(i);
+          }
+        }, _react.default.createElement("div", {
+          className: "plat"
+        }, historyLine.cases.map(function (value, i) {
+          return _react.default.createElement(_Case.default, {
+            key: i,
+            value: value
+          });
+        })));
+      }))), _react.default.createElement(Winner, {
+        winner: this.state.winner,
+        cases: this.state.cases
+      }), this.state.canReset ? _react.default.createElement("div", {
+        className: "actions"
+      }, _react.default.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState(TicTacToe.defaultState());
+        }
+      }, "RESET")) : '');
+    }
+  }, {
+    key: "restoreHistoryLine",
+    value: function restoreHistoryLine(historyLine) {
+      this.setState(this.state.history.slice(historyLine, historyLine + 1)[0]);
     }
   }, {
     key: "caseChecked",
     value: function caseChecked(caseId) {
-      if (this.winner) return;
+      if (this.state.winner) return;
       var cases = this.state.cases.slice();
       cases[caseId] = this.state.player;
       this.setState({
+        canReset: true,
         cases: cases,
-        player: 3 - this.state.player
+        player: 3 - this.state.player,
+        history: this.state.history.concat([{
+          cases: this.state.cases,
+          winner: this.state.winner,
+          player: this.state.player //history: this.state.history.slice(), // keep history or not
+
+        }]),
+        winner: TicTacToe.findWinner(cases)
       });
-      this.winner = TicTacToe.findWinner(cases);
-    }
-  }, {
-    key: "renderWinner",
-    value: function renderWinner() {
-      if (this.winner) {
-        return _react.default.createElement("span", null, "Le joueur ", this.winner, " \xE0 gagn\xE9 !");
-      }
     }
   }], [{
+    key: "defaultState",
+    value: function defaultState() {
+      return {
+        cases: Array(9).fill(0),
+        player: 1,
+        winner: 0,
+        history: [],
+        canReset: false
+      };
+    }
+  }, {
     key: "findWinner",
     value: function findWinner(cases) {
       var matrixWin = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
       var winner = 0;
       matrixWin.some(function (matrix) {
         if (cases[matrix[0]] !== 0 && cases[matrix[0]] === cases[matrix[1]] && cases[matrix[1]] === cases[matrix[2]]) {
-          winner = cases[matrix[0]];
-          return true;
+          return winner = cases[matrix[0]];
         }
       });
       return winner;
@@ -2598,6 +2641,20 @@ function (_React$Component) {
 
   return TicTacToe;
 }(_react.default.Component);
+
+function Winner(props) {
+  if (!props.winner) {
+    if (props.cases.some(function (oneCase) {
+      return oneCase === 0;
+    })) {
+      return _react.default.createElement("span", null);
+    }
+
+    return _react.default.createElement("span", null, "\xC9galit\xE9 !");
+  }
+
+  return _react.default.createElement("span", null, "Le joueur ", props.winner, " \xE0 gagn\xE9 !");
+}
 
 var _default = TicTacToe;
 exports.default = _default;
@@ -26539,7 +26596,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46391" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39717" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

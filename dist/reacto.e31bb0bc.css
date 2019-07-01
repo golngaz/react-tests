@@ -16,10 +16,10 @@ body {
 
 .tic-tac-toe {
   margin-top: 20px;
-  width: 212px;
-  height: 212px;
 }
 .tic-tac-toe .plat {
+  display: inline-block;
+  width: 212px;
   border: 1px solid black;
   line-height: 68px;
 }
@@ -30,6 +30,36 @@ body {
   width: 70px;
   height: 70px;
   border: 1px solid black;
+}
+.tic-tac-toe .actions button {
+  margin-top: 10px;
+}
+.tic-tac-toe .history {
+  width: 80%;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+}
+.tic-tac-toe .history .history-line {
+  display: inline-block;
+  margin-left: 5px;
+}
+.tic-tac-toe .history .history-line .plat {
+  display: inline-block;
+  width: 62px;
+  border: 1px solid black;
+  line-height: 18px;
+}
+.tic-tac-toe .history .history-line .case {
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+.tic-tac-toe .history .history-line .actions button {
+  margin-top: 10px;
 }
 
 .form-password {

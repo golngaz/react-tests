@@ -12,16 +12,15 @@ body {
     @import "./table.scss";
 }
 
-.tic-tac-toe {
-    margin-top: 20px;
+@mixin ticTacBoard($caseWith, $nbCasesPerRow) {
+    //$caseWith: 70px;
+    //$nbCasesPerRow: 3;
 
-    $caseWith: 70px;
-    $nbCasesPerRow: 3;
-
-    width: $caseWith * $nbCasesPerRow + 2; // 2 la bordure
-    height: $caseWith * $nbCasesPerRow + 2;
+    //height: $caseWith * $nbCasesPerRow + 2;
 
     .plat {
+        display: inline-block;
+        width: $caseWith * $nbCasesPerRow + 2; // 2 la bordure
         border: 1px solid black;
         line-height: $caseWith - 2;
     }
@@ -34,6 +33,30 @@ body {
         width: $caseWith;
         height: $caseWith;
         border: 1px solid black;
+    }
+
+    .actions {
+        button {
+            margin-top: 10px;
+        }
+    }
+}
+
+.tic-tac-toe {
+    margin-top: 20px;
+
+    @include ticTacBoard(70px, 3);
+
+    .history {
+        width: 80%;
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 20px;
+        .history-line {
+            display: inline-block;
+            margin-left: 5px;
+            @include ticTacBoard(20px, 3);
+        }
     }
 }
 
