@@ -2913,6 +2913,86 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = PasswordChecker;
+},{"react":"node_modules/react/index.js"}],"Counter.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Counter =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Counter, _React$Component);
+
+  function Counter(props) {
+    var _this;
+
+    _classCallCheck(this, Counter);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Counter).call(this, props));
+    _this.state = {
+      count: 0
+    };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Counter, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.title = "Vous avez cliqu\xE9 ".concat(this.state.count, " fois");
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      document.title = "Vous avez cliqu\xE9 ".concat(this.state.count, " fois");
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      this.setState(function (state) {
+        return {
+          count: state.count + 1
+        };
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("p", null, "Vous avez cliqu\xE9 ", this.state.count, " fois"), _react.default.createElement("button", {
+        onClick: this.handleClick
+      }, "Cliquez ici"));
+    }
+  }]);
+
+  return Counter;
+}(_react.default.Component);
+
+exports.default = Counter;
 },{"react":"node_modules/react/index.js"}],"node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -26498,6 +26578,8 @@ var _BasicForm = _interopRequireDefault(require("./BasicForm"));
 
 var _PasswordChecker = _interopRequireDefault(require("./PasswordChecker"));
 
+var _Counter = _interopRequireDefault(require("./Counter"));
+
 require("./style.scss");
 
 var _react = _interopRequireDefault(require("react"));
@@ -26560,7 +26642,7 @@ function (_React$Component) {
         className: "list-customers"
       }, _react.default.createElement(_customers.default, {
         customers: customers
-      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, _react.default.createElement(_BasicForm.default, null)), _react.default.createElement("div", null, _react.default.createElement(_PasswordChecker.default, null)));
+      })), _react.default.createElement("div", null, _react.default.createElement(_TicTacToe.default, null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, _react.default.createElement(_BasicForm.default, null)), _react.default.createElement("div", null, _react.default.createElement(_PasswordChecker.default, null)), _react.default.createElement("div", null, _react.default.createElement(_Counter.default, null)));
     }
   }]);
 
@@ -26568,7 +26650,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"./clock":"clock.js","./customers":"customers.js","./ticTacToe/TicTacToe":"ticTacToe/TicTacToe.js","./BasicForm":"BasicForm.js","./PasswordChecker":"PasswordChecker.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./clock":"clock.js","./customers":"customers.js","./ticTacToe/TicTacToe":"ticTacToe/TicTacToe.js","./BasicForm":"BasicForm.js","./PasswordChecker":"PasswordChecker.js","./Counter":"Counter.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -26596,7 +26678,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39717" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34953" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

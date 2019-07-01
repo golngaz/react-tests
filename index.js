@@ -3,6 +3,7 @@ import Customers from './customers'
 import TicTacToe from './ticTacToe/TicTacToe'
 import BasicForm from './BasicForm'
 import PasswordChecker from './PasswordChecker'
+import Counter from "./Counter";
 import './style.scss'
 
 import React from 'react'
@@ -38,6 +39,9 @@ class App extends React.Component {
                 </div>
                 <div>
                     <PasswordChecker />
+                </div>
+                <div>
+                    <Counter />
                 </div>
             </div>
         )
