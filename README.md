@@ -1,6 +1,10 @@
-##run
+## run
 
 /usr/bin/node ./node_modules/.bin/parcel index.html
+
+## build
+
+/usr/bin/node ./node_modules/.bin/parcel build index.html
 
 ## tests
 
