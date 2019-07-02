@@ -9,7 +9,7 @@
 ## tests
 
 
-#### if not --globael jest
+#### if not --global jest
 * .bashrc : 
 ```bash
 function jest {
