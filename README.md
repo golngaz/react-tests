@@ -25,3 +25,7 @@ function test {
     /usr/bin/node node_modules/.bin/jest --config=jest.config.js ${1}.test
 }
 ```
+
+```bash
+test Counter
+```
