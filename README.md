@@ -8,29 +8,24 @@
 
 ## tests
 
-.bashrc : 
 
+#### if not --globael jest
+* .bashrc : 
 ```bash
 function jest {
+    # la commande jest accepte les pattern et est configurable en ajoutant un fichier jest.config.js
     node node_modules/.bin/jest --config=jest.config.js $@
 }
-
-function jsxTest {
-    php ./bin/jsxTest.php src __tests__/tmp
-}
-
-function test {
-    jsxTest
-    jest ${1}.test
-    rm -fr __tests__/tmp
-}
-
-function rerun {
-    jest ${1}.test
-}
-
 ```
-
+```bash
+function test {
+    jest ${1}.test
+}
+```
+* bash
 ```bash
 test Counter
 ```
+
+### Jest
+https://jestjs.io/en/
