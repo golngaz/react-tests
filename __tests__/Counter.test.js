@@ -6,7 +6,8 @@ import Counter from "./tmp/Counter";
 
 let container;
 
-var act = ReactTestUtils.act;
+let act = ReactTestUtils.act;
+
 
 beforeEach(() => {
     container = document.createElement('div');
@@ -20,21 +21,41 @@ afterEach(() => {
 });
 
 describe('tests basiques du composant', function () {
-    it('Le composant s\'affiche', () => {
-        act(() => {
-            ReactDOM.render(React.createElement(Counter), container);
-        });
-        expect(container.outerHTML).toBe('<div id="container"><div><p>Vous avez cliqué 0 fois</p><button>Cliquez ici</button></div></div>');
-        const button = container.querySelector('button');
+    it('Doit s\'afficher', () => {
+        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+
         const label = container.querySelector('p');
+
+        expect(container.outerHTML).toBe('<div id="container"><div><p>Vous avez cliqué 0 fois</p><button>Cliquez ici</button></div></div>');
         expect(label.textContent).toBe('Vous avez cliqué 0 fois');
         expect(document.title).toBe('Vous avez cliqué 0 fois');
+    });
 
-        // Teste un second affichage et l'appel à componentDidUpdate
+    it('Doit passer à 1 quand on clique', function () {
+        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+
+        const button = container.querySelector('button')
+        const label = container.querySelector('p')
+
+        act(() => {button.dispatchEvent(new MouseEvent('click', {bubbles: true}))})
+
+        expect(label.textContent).toBe('Vous avez cliqué 1 fois')
+        expect(document.title).toBe('Vous avez cliqué 1 fois')
+    });
+
+    it('Doit passer à 3 quand on clique 3 fois', function () {
+        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+
+        const button = container.querySelector('button')
+        const label = container.querySelector('p')
+
         act(() => {
-            button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-        });
-        expect(label.textContent).toBe('Vous avez cliqué 1 fois');
-        expect(document.title).toBe('Vous avez cliqué 1 fois');
+            button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+            button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+            button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+        })
+
+        expect(label.textContent).toBe('Vous avez cliqué 3 fois')
+        expect(document.title).toBe('Vous avez cliqué 3 fois')
     });
 });
