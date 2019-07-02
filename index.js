@@ -1,9 +1,9 @@
-import Clock from './clock'
-import Customers from './customers'
-import TicTacToe from './ticTacToe/TicTacToe'
-import BasicForm from './BasicForm'
-import PasswordChecker from './PasswordChecker'
-import Counter from "./Counter";
+import Clock from './src/clock'
+import Customers from './src/customers'
+import TicTacToe from './src/ticTacToe/TicTacToe'
+import BasicForm from './src/BasicForm'
+import PasswordChecker from './src/PasswordChecker'
+import Counter from "./src/Counter";
 import './style.scss'
 
 import React from 'react'

@@ -2253,7 +2253,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react.development.js');
 }
-},{"./cjs/react.development.js":"node_modules/react/cjs/react.development.js"}],"clock.js":[function(require,module,exports) {
+},{"./cjs/react.development.js":"node_modules/react/cjs/react.development.js"}],"src/clock.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2355,7 +2355,7 @@ function (_React$Component) {
 
 var _default = Clock;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"customers.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/customers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2414,7 +2414,7 @@ function (_React$Component) {
 
 var _default = Customers;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"ticTacToe/Case.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/ticTacToe/Case.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2496,7 +2496,7 @@ Case.defaultProps = {
 };
 var _default = Case;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"ticTacToe/TicTacToe.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/ticTacToe/TicTacToe.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2658,7 +2658,7 @@ function Winner(props) {
 
 var _default = TicTacToe;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./Case":"ticTacToe/Case.js"}],"BasicForm.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Case":"src/ticTacToe/Case.js"}],"src/BasicForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2735,7 +2735,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = BasicForm;
-},{"react":"node_modules/react/index.js"}],"PasswordChecker.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/PasswordChecker.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2913,7 +2913,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = PasswordChecker;
-},{"react":"node_modules/react/index.js"}],"Counter.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/Counter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26568,17 +26568,17 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _clock = _interopRequireDefault(require("./clock"));
+var _clock = _interopRequireDefault(require("./src/clock"));
 
-var _customers = _interopRequireDefault(require("./customers"));
+var _customers = _interopRequireDefault(require("./src/customers"));
 
-var _TicTacToe = _interopRequireDefault(require("./ticTacToe/TicTacToe"));
+var _TicTacToe = _interopRequireDefault(require("./src/ticTacToe/TicTacToe"));
 
-var _BasicForm = _interopRequireDefault(require("./BasicForm"));
+var _BasicForm = _interopRequireDefault(require("./src/BasicForm"));
 
-var _PasswordChecker = _interopRequireDefault(require("./PasswordChecker"));
+var _PasswordChecker = _interopRequireDefault(require("./src/PasswordChecker"));
 
-var _Counter = _interopRequireDefault(require("./Counter"));
+var _Counter = _interopRequireDefault(require("./src/Counter"));
 
 require("./style.scss");
 
@@ -26650,7 +26650,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"./clock":"clock.js","./customers":"customers.js","./ticTacToe/TicTacToe":"ticTacToe/TicTacToe.js","./BasicForm":"BasicForm.js","./PasswordChecker":"PasswordChecker.js","./Counter":"Counter.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./src/clock":"src/clock.js","./src/customers":"src/customers.js","./src/ticTacToe/TicTacToe":"src/ticTacToe/TicTacToe.js","./src/BasicForm":"src/BasicForm.js","./src/PasswordChecker":"src/PasswordChecker.js","./src/Counter":"src/Counter.js","./style.scss":"style.scss","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -26678,7 +26678,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34953" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37253" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
