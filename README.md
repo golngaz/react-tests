@@ -15,8 +15,12 @@ function jest {
     node node_modules/.bin/jest --config=jest.config.js $@
 }
 
-function test {
+function jsxTest {
     php ./bin/jsxTest.php src __tests__/tmp
+}
+
+function test {
+    jsxTest
     jest ${1}.test
     rm -fr __tests__/tmp
 }
