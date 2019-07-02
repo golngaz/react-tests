@@ -18,6 +18,10 @@ class JsxCompiler
     {
         $iterator = new IteratorIterator(new RecursiveDirectoryIterator($dir));
 
+        if (!is_dir($toDir)) {
+            mkdir($toDir);
+        }
+
         /**
          * @var string      $name
          * @var SplFileInfo $file
@@ -26,13 +30,7 @@ class JsxCompiler
             if ($file->isFile()) {
                 self::command($file->getRealPath(), $toDir.DIRECTORY_SEPARATOR.$file->getBasename());
             } elseif ($file->isDir() && !in_array($file->getBasename(), ['..', '.'])) {
-                $newFolder = $toDir.DIRECTORY_SEPARATOR.$file->getBasename();
-
-                if (!is_dir($newFolder)) {
-                    mkdir($newFolder);
-                }
-
-                self::compil($file->getPathname(), $newFolder);
+                self::compil($file->getPathname(), $toDir.DIRECTORY_SEPARATOR.$file->getBasename());
             }
         }
     }

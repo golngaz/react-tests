@@ -11,19 +11,20 @@
 .bashrc : 
 
 ```bash
-function test {
-    /usr/bin/node ./node_modules/.bin/babel --plugins @babel/plugin-transform-react-jsx ${1}.js -o ${1}Test.js
-    /usr/bin/node node_modules/.bin/jest --config=jest.config.js ${1}.test
-    rm ${1}Test.js
+function jest {
+    node node_modules/.bin/jest --config=jest.config.js $@
 }
-```
-ou 
 
-```bash
 function test {
-    /usr/bin/php ./bin/jsTest.php src __tests__/src
-    /usr/bin/node node_modules/.bin/jest --config=jest.config.js ${1}.test
+    php ./bin/jsxTest.php src __tests__/tmp
+    jest ${1}.test
+    rm -fr __tests__/tmp
 }
+
+function rerun {
+    jest ${1}.test
+}
+
 ```
 
 ```bash
