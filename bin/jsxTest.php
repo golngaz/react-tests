@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated
+ */
 class JsxCompiler
 {
     private $node       = '/opt/node-v10.16.0-linux-x64/bin/node';

@@ -21,7 +21,7 @@ afterEach(() => {
 
 describe('tests basiques du composant', function () {
     it('Doit s\'afficher', () => {
-        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+        act(() => {ReactDOM.render(<Counter />, container)})
 
         const label = container.querySelector('p');
 
@@ -31,7 +31,7 @@ describe('tests basiques du composant', function () {
     });
 
     it('Doit passer à 1 quand on clique', function () {
-        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+        act(() => {ReactDOM.render(<Counter />, container)})
 
         const button = container.querySelector('button')
         const label = container.querySelector('p')
@@ -43,7 +43,7 @@ describe('tests basiques du composant', function () {
     });
 
     it('Doit passer à 3 quand on clique 3 fois', function () {
-        act(() => {ReactDOM.render(React.createElement(Counter), container)})
+        act(() => {ReactDOM.render(<Counter />, container)})
 
         const button = container.querySelector('button')
         const label = container.querySelector('p')
