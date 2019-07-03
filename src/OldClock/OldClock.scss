@@ -1,0 +1,22 @@
+.old-clock {
+    $diameter: 170px;
+
+    width: $diameter;
+    height: $diameter;
+
+    background-color: white;
+    border-radius: $diameter / 2;
+
+    .base {
+        padding-top: 50%;
+        .needles-container {
+            position: relative;
+            margin-left: 50%;
+            width: 50%;
+
+            .needle {
+                position: absolute;
+            }
+        }
+    }
+}

@@ -20,6 +20,7 @@ export default class Counter extends React.Component {
     render() {
         return (
             <div>
+                {this.props.children}
                 <p>Vous avez cliqué {this.state.count} fois</p>
                 <button onClick={this.handleClick}>
                     Cliquez ici

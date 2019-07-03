@@ -101,7 +101,7 @@ export default class PasswordChecker extends React.Component {
             clout -= 11
         }
 
-        console.log(clout)
+        console.log('score de sécurité du mot de passe : ', clout)
 
         if (clout > 31) {
             this.setState({dangerLevel: dangerLevels.ok})

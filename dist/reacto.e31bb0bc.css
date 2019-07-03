@@ -10118,5 +10118,22 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 
+.old-clock {
+  width: 170px;
+  height: 170px;
+  background-color: white;
+  border-radius: 85px;
+}
+.old-clock .base {
+  padding-top: 50%;
+}
+.old-clock .base .needles-container {
+  position: relative;
+  margin-left: 50%;
+  width: 50%;
+}
+.old-clock .base .needles-container .needle {
+  position: absolute;
+}
 
 /*# sourceMappingURL=/reacto.e31bb0bc.css.map */

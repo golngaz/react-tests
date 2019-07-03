@@ -10,7 +10,7 @@ export default class BasicForm extends React.Component {
     render() {
         return (
             <div>
-                <span>{this.renderResult()}</span>
+                <span dangerouslySetInnerHTML={{__html: this.renderResult()}} />
                 <input type="text" onChange={(e) => this.inputChanged(e)}/>
             </div>
         )
