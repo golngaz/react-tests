@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import Clock from './clock'
 import Customers from './customers'
 import TicTacToe from './ticTacToe/TicTacToe'
@@ -6,6 +6,12 @@ import BasicForm from './BasicForm'
 import PasswordChecker from './PasswordChecker'
 import Counter from './Counter'
 import OldClock from './OldClock/OldClock'
+import Fragments from './Fragments'
+import Button from './wrap-material-ui/ButtonUi';
+import Grid from "@material-ui/core/Grid";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from '@material-ui/icons/Add';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -41,6 +47,28 @@ export default class App extends React.Component {
                 </div>
                 <div>
                     <Counter><b>Bonjour</b></Counter>
+                </div>
+                <div>
+                    <Fragments />
+                </div>
+                <div>
+                    <Button className="ui" variant="contained" color="primary">BONJOUR</Button>
+                </div>
+                <div>
+                    <Grid container>
+                        <Grid item>
+                            <ButtonGroup size="small" aria-label="Small outlined button group">
+                                <Button>One</Button>
+                                <Button>Two</Button>
+                                <Button>Three</Button>
+                            </ButtonGroup>
+                        </Grid>
+                    </Grid>
+                </div>
+                <div>
+                    <Fab color="primary" aria-label="Add">
+                        <AddIcon />
+                    </Fab>
                 </div>
             </div>
         )

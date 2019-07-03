@@ -13,6 +13,9 @@ body {
   min-width: 400px;
   color: #b3b3b3;
 }
+#app button.ui:focus {
+  outline: none;
+}
 
 .tic-tac-toe {
   margin-top: 20px;

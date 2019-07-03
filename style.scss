@@ -9,7 +9,8 @@ body {
     margin-right: auto;
     margin-top: 50px;
 
-    @import "./table.scss";
+    @import "./table";
+    @import "./fixes-material-ui";
 }
 
 @mixin ticTacBoard($caseWith, $nbCasesPerRow) {
