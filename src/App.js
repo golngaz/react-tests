@@ -7,7 +7,7 @@ import PasswordChecker from './PasswordChecker'
 import Counter from './Counter'
 import OldClock from './OldClock/OldClock'
 import Fragments from './Fragments'
-import Button from './wrap-material-ui/ButtonUi';
+import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Fab from "@material-ui/core/Fab";

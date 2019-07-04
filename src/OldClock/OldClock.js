@@ -7,18 +7,17 @@ export default class OldClock extends React.Component {
         super(props)
         this.state = {
             time: new Date(),
-            tickId: null,
         }
+
+        this.tickId = null
     }
 
     componentDidMount() {
-        let tickId = setInterval(() => this.setState({time: new Date}), 1000)
-
-        this.setState({tickId: tickId})
+        this.tickId = setInterval(() => this.setState({time: new Date}), 1000)
     }
 
     componentWillUnmount() {
-        clearInterval(this.state.tickId)
+        clearInterval(this.tickId)
     }
 
     render() {
