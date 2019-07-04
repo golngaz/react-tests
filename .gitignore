@@ -3,4 +3,5 @@
 /.idea
 /npm-debug.log
 /bin/custom.sh
-/dist
+/dist/*
+!.gitkeep

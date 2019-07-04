@@ -8,7 +8,7 @@
     "buildCustom": "touch bin/custom.sh && bash bin/custom.sh",
     "prod": "bash bin/deploy.sh",
 
-    "clean": "rm -r dist && rm public/*.css* && rm public/*.js*"
+    "clean": "cd dist && ls -a . | grep ^[a-zA-Z] | xargs rm"
   },
   "author": "golngaz",
   "license": "MIT",
