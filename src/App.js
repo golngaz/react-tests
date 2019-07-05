@@ -14,7 +14,10 @@ import Fab from "@material-ui/core/Fab"
 import AddIcon from '@material-ui/icons/Add'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import '../style.scss' // @todo déplacer
+import '../style.scss'
+import withClass from "./HOC/withClass"
+
+const ButtonCustom = withClass('custom-button-ui')(Button)
 
 export default class App extends React.Component {
     constructor(props) {
@@ -34,45 +37,25 @@ export default class App extends React.Component {
                 <h1 onClick={() => this.setState({clockMode: this.state.clockMode === 'normal' ? 'old' : 'normal' })}>
                     Bonjour, il est : {this.state.clockMode === 'old' ? <OldClock display="inline-block" width="70px"/> : <Clock /> }
                 </h1>
-                <div className="list-customers">
-                    <Customers customers={customers}/>
-                </div>
-                <div>
-                    <TicTacToe />
-                </div>
-
-                <br /><br />
-                <div>
-                    <BasicForm />
-                </div>
-                <div>
-                    <PasswordChecker />
-                </div>
-                <div>
-                    <Counter><b>Bonjour</b></Counter>
-                </div>
-                <div>
-                    <Fragments />
-                </div>
-                <div>
-                    <Button className="ui" variant="contained" color="primary">BONJOUR</Button>
-                </div>
-                <div>
-                    <Grid container>
-                        <Grid item>
-                            <ButtonGroup size="small" aria-label="Small outlined button group">
-                                <Button>One</Button>
-                                <Button>Two</Button>
-                                <Button>Three</Button>
-                            </ButtonGroup>
-                        </Grid>
+                <Customers customers={customers}/>
+                <TicTacToe onClick={() => alert('bonjour')}/><br />
+                <BasicForm />
+                <PasswordChecker />
+                <Counter><b>Bonjour</b></Counter>
+                <Fragments />
+                <ButtonCustom className="persooo">Mon bouton custom</ButtonCustom>
+                <Grid container>
+                    <Grid item>
+                        <ButtonGroup size="small" aria-label="Small outlined button group">
+                            <Button>One</Button>
+                            <Button>Two</Button>
+                            <Button>Three</Button>
+                        </ButtonGroup>
                     </Grid>
-                </div>
-                <div>
-                    <Fab color="primary" aria-label="Add">
-                        <AddIcon />
-                    </Fab>
-                </div>
+                </Grid>
+                <Fab color="primary" aria-label="Add">
+                    <AddIcon />
+                </Fab>
             </div>
         )
     }
