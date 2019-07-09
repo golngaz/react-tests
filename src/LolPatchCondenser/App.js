@@ -8,8 +8,8 @@ import Configurator from './Configurator'
 import Result from './Result'
 import ItemSelector from './ItemSelector/ItemSelector'
 import axios from 'axios'
-import Item from "./src/Item";
-import ItemCollection from "./src/ItemCollection";
+import Item from "./src/Item.ts";
+import ItemCollection from "./src/ItemCollection.ts";
 
 export default class App extends React.Component {
     constructor(props) {
