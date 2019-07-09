@@ -32,8 +32,10 @@ export default class ItemSelector extends React.Component {
      * @return {ItemCollection}
      */
     itemsFiltered() {
-        return this.props.items.filter((itemData) => {
-            return itemData.name.toLocaleLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        let search = this.state.search.toLowerCase();
+        return this.props.items.filter((item) => {
+
+            return item.name.toLocaleLowerCase().indexOf(search) !== -1 || item.keywords.some((keyword) => keyword.indexOf(search) !== -1)
         })
     }
 
