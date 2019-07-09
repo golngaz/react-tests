@@ -15,32 +15,70 @@ export default class ItemSelector extends React.Component {
         this.nbByPage = 10
     }
 
+    static getNbPage(nbItems, nbByPage) {
+        let div = nbItems / nbByPage;
+        let floor = Math.floor(div);
+
+        return floor + (div > floor ? 0 : -1)
+    }
+
     onSelect(item) {
         this.props.onSelect && this.props.onSelect(item)
+    }
+
+    /**
+     * Renvoie les items filtrés par la recherche
+     *
+     * @return {ItemCollection}
+     */
+    itemsFiltered() {
+        return this.props.items.filter((itemData) => {
+            return itemData.name.toLocaleLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        })
+    }
+
+    changePage(page) {
+        this.setState({page: page})
+    }
+
+    increasePage() {
+        if (this.state.page + 1 > ItemSelector.getNbPage(this.itemsFiltered().items.length, this.nbByPage)) {
+            return
+        }
+
+        this.setState({page : ++this.state.page})
+    }
+
+    decreasePage() {
+        if (this.state.page - 1 < 0) {
+            return
+        }
+
+        this.setState({page : --this.state.page})
     }
 
     render() {
         return (
             <Panel style={{height: '100%'}}>
                 {this.renderSearch()}
-                <ListItems onSelect={(item) => this.onSelect(item)} items={this.calculateItems()} />
+                <ListItems onSelect={(item) => this.onSelect(item)} items={this.itemsFiltered().paginate(this.state.page, this.nbByPage)} />
                 {this.renderPagination()}
             </Panel>
         )
     }
 
-    handleChange(e) {
-        this.setState({});
-    }
+    renderSearch() {
+        return (
+            <Grid container>
+                <Grid item xs={1}>
+                    <SearchIcon />
+                </Grid>
+                <Grid item xs={11}>
+                    <Input className="search-item" onChange={(e) => this.setState({search: e.currentTarget.value, page: 0})}/>
+                </Grid>
+            </Grid>
+        )
 
-    calculateItems() {
-        return this.props.items.filter((itemData) => {
-            return itemData.name.toLocaleLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-        }).paginate(this.state.page, this.nbByPage)
-    }
-
-    changePage(page) {
-        this.setState({page: page})
     }
 
     renderPagination() {
@@ -57,35 +95,5 @@ export default class ItemSelector extends React.Component {
                 </Grid>
             </Grid>
         )
-    }
-
-    increasePage() {
-        if (this.state.page + 1 > this.props.items.getNbPage(this.nbByPage)) {
-            return
-        }
-
-        this.setState({page : ++this.state.page})
-    }
-
-    decreasePage() {
-        if (this.state.page - 1 < 0) {
-            return
-        }
-
-        this.setState({page : --this.state.page})
-    }
-
-    renderSearch() {
-        return (
-            <Grid container>
-                <Grid item xs={1}>
-                    <SearchIcon />
-                </Grid>
-                <Grid item xs={11}>
-                    <Input className="search-item" onChange={(e) => this.setState({search: e.currentTarget.value, page: 0})}/>
-                </Grid>
-            </Grid>
-        )
-
     }
 }

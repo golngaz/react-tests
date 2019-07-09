@@ -4,6 +4,7 @@ export default class ItemCollection {
      * @param {Item[]=} items
      */
     constructor(items) {
+        // @todo restaurer le fonctionnement mais en dehors du métier
         this.needToLoad = items === undefined;
 
         this.items = items ? items : []
@@ -34,12 +35,5 @@ export default class ItemCollection {
      */
     paginate(page = 0, nbByPages = 14) {
         return this.items.slice(page * nbByPages, (page * nbByPages) + nbByPages)
-    }
-
-    getNbPage(nbByPages) {
-        let div = this.items.length/nbByPages;
-        let floor = Math.floor(div);
-
-        return floor + (div > floor ? 0 : -1)
     }
 }
