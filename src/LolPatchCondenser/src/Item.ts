@@ -6,7 +6,7 @@ export default class Item {
     private readonly keywords: Array<String>;
     private readonly type?: String;
 
-    constructor(id: number, name: String, img: String = '', label: String = '', type: ('champion'|'item') = 'item', keywords: Array<String> = [])
+    constructor(id: number, name: String, img: String = '', label: String = '', type: 'champion'|'item' = 'item', keywords: Array<String> = [])
     {
         this.id = id
         this.name = name
@@ -16,7 +16,7 @@ export default class Item {
         this.keywords = keywords
     }
 
-    static fromData(data: {id: number, name: String, img?: String, label?: String, type?: String, keywords?: Array<String>}): Item
+    static fromData(data: {id: number, name: String, img?: String, label?: String, type: 'champion'|'item', keywords?: Array<String>}): Item
     {
         return new Item(data.id, data.name, data.img, data.label, data.type, data.keywords)
     }
