@@ -19,6 +19,20 @@ body {
                 display :block;
                 margin: auto auto auto 0;
             }
+
+            .input-page {
+                input {
+                    text-align: center;
+                }
+            }
+
+            .item-button-selector {
+                min-height: 61px;
+            }
+
+            .search-item {
+                width: 100%;
+            }
         }
     }
 }

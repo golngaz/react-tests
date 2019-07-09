@@ -22,5 +22,6 @@ export default class BasicForm extends React.Component {
 
     inputChanged(e) {
         this.setState({value: e.currentTarget.value})
+        this.props.onChange('payttefg')
     }
 }

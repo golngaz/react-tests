@@ -6,21 +6,30 @@ import Grid from '@material-ui/core/Grid'
 import Panel from './Panel'
 import Configurator from './Configurator'
 import Result from './Result'
-import ListItems from './ListItems'
-//import loadJsonFile from 'load-json-file'
+import ItemSelector from './ItemSelector/ItemSelector'
+import axios from 'axios'
+import Item from "./src/Item";
+import ItemCollection from "./src/ItemCollection";
 
 export default class App extends React.Component {
     constructor(props) {
         super(props)
 
-        let file = 'data.json'
-
-        //loadJsonFile(file).then((data) => console.log(data)) @todo
         this.state = {
-            items: [
-                { id:3102, name: 'Voile de la banshee', img: 'https://ddragon.leagueoflegends.com/cdn/9.13.1/img/item/3102.png'}
-            ]
+            items: new ItemCollection(),
         }
+    }
+
+    componentDidMount() {
+        axios.get('/data.json')
+            .then((response) => this.setState({items: this.initItems(response.data)}))
+    }
+
+    initItems(data) {
+        let items = [];
+        data.forEach((itemDatum) => items.push(Item.fromData(itemDatum)))
+
+        return new ItemCollection(items);
     }
 
     render() {
@@ -42,7 +51,7 @@ export default class App extends React.Component {
                                 </Grid>
                             </Grid>
                             <Grid className="items" item xs={5}>
-                                <ListItems items={this.state.items} onSelect={() => this.onSelectItem()}/>
+                                <ItemSelector items={this.state.items} onSelect={(item) => this.onSelectedItem(item)}/>
                             </Grid>
                         </Grid>
                     </Panel>
@@ -51,7 +60,7 @@ export default class App extends React.Component {
         )
     }
 
-    onSelectItem(item) {
-        console.log('item selected : ', item)
+    onSelectedItem(item) {
+        this.setState({items : this.state.items.popSlice(item)})
     }
 }
