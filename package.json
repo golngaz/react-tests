@@ -5,7 +5,7 @@
   "main": "entry.js",
   "scripts": {
     "build": "parcel hotpoint.html",
-    "prod": "bash bin/deploy.sh",
+    "prod": "bash bin/deploy.sh"
   },
   "author": "golngaz",
   "license": "MIT",
