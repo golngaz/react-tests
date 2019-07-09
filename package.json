@@ -6,7 +6,6 @@
   "scripts": {
     "build": "parcel hotpoint.html",
     "prod": "bash bin/deploy.sh",
-    "clean": "cd dist && ls -a . | grep ^[a-zA-Z] | xargs rm"
   },
   "author": "golngaz",
   "license": "MIT",

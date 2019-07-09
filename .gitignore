@@ -2,7 +2,6 @@
 /node_modules
 /.idea
 /npm-debug.log
-/bin/custom.sh
 /dist/*
 !/dist/data.json
 !.gitkeep
