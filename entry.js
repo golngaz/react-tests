@@ -4,11 +4,13 @@ import App from "./src/LolPatchCondenser/App";
 
 // development
 const config = {
-    uri: '/'
+    uri: '/',
+    host: '127.0.0.1'
 }
 
 if (process.env.NODE_ENV === 'production') {
-    config['uri'] = 'http://127.0.0.1/~gael/hello_react/'
+    config.host = '192.168.0.132'
+    config.uri = 'http://'+config.host+'/~gael/hello_react/'
 }
 
 ReactDOM.render(<App config={config}/>, document.getElementById('app'))

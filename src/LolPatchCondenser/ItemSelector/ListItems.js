@@ -19,7 +19,7 @@ export default class ListItems extends React.Component {
                 {this.props.items.map((item) => {return (
                     <ListItem className="item-button-selector" onClick={() => this.onClick(item)} key={item.id} button>
                         <ListItemAvatarResized><img src={item.img} alt="" /></ListItemAvatarResized>
-                        <ListItemText>{item.name}</ListItemText>
+                        <ListItemText>{item.label}</ListItemText>
                     </ListItem>
                 )})}
             </List>
