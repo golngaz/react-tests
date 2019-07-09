@@ -5,12 +5,16 @@ import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from '@material-ui/icons/Search';
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 
 export default class ItemSelector extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {page: 0, search : ''}
+        this.state = {page: 0, search: '', type: 'all'}
 
         this.nbByPage = 10
     }
@@ -34,8 +38,7 @@ export default class ItemSelector extends React.Component {
     itemsFiltered() {
         let search = this.state.search.toLowerCase();
         return this.props.items.filter((item) => {
-
-            return item.name.toLocaleLowerCase().indexOf(search) !== -1 || item.keywords.some((keyword) => keyword.indexOf(search) !== -1)
+            return (item.name.toLocaleLowerCase().indexOf(search) !== -1 || item.keywords.some((keyword) => keyword.indexOf(search) !== -1)) && (this.state.type === 'all' || this.state.type === item.type)
         })
     }
 
@@ -44,7 +47,7 @@ export default class ItemSelector extends React.Component {
     }
 
     increasePage() {
-        if (this.state.page + 1 > ItemSelector.getNbPage(this.itemsFiltered().items.length, this.nbByPage)) {
+        if (this.state.page + 1 > ItemSelector.getNbPage(this.itemsFiltered().length(), this.nbByPage)) {
             return
         }
 
@@ -75,8 +78,22 @@ export default class ItemSelector extends React.Component {
                 <Grid item xs={1}>
                     <SearchIcon />
                 </Grid>
-                <Grid item xs={11}>
+                <Grid item xs={7}>
                     <Input className="search-item" onChange={(e) => this.setState({search: e.currentTarget.value, page: 0})}/>
+                </Grid>
+                <Grid item xs={4} style={{textAlign: 'center'}}>
+                    <FormControl style={{margin: '-16px'}}>
+                        <InputLabel>Type</InputLabel>
+                        <Select
+                            value={this.state.type}
+                            onChange={(e) => this.setState({type: e.target.value})}
+                            name="age"
+                        >
+                            <MenuItem value="all">Tous</MenuItem>
+                            <MenuItem value="item">Items</MenuItem>
+                            <MenuItem value="champion">Champions</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
             </Grid>
         )

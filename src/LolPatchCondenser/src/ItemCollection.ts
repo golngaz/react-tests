@@ -25,11 +25,27 @@ export default class ItemCollection
 
     filter(callback: Function): ItemCollection
     {
+        // @ts-ignore
         return new ItemCollection(this.items.filter(callback))
     }
 
-    paginate(page: number = 0, nbByPages: number = 14): Array<Item>
+    length(): number
     {
-        return this.items.slice(page * nbByPages, (page * nbByPages) + nbByPages)
+        return this.items.length
+    }
+
+    isEmpty(): boolean
+    {
+        return this.items.length === 0
+    }
+
+    map<U>(callback: () => U, thisArg?: any): Array<U>
+    {
+        return this.items.map(callback, thisArg)
+    }
+
+    paginate(page: number = 0, nbByPages: number = 14): ItemCollection
+    {
+        return new ItemCollection(this.items.slice(page * nbByPages, (page * nbByPages) + nbByPages))
     }
 }

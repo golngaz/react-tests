@@ -9,8 +9,7 @@ const config = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    config.host = '192.168.0.132'
-    config.uri = 'http://'+config.host+'/~gael/hello_react/'
+    config.uri = window.location.href
 }
 
 ReactDOM.render(<App config={config}/>, document.getElementById('app'))
