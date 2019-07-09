@@ -21,7 +21,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('/data.json')
+        axios.get(this.props.config.uri + 'data.json')
             .then((response) => this.setState({items: this.initItems(response.data)}))
     }
 

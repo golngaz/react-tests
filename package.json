@@ -2,10 +2,9 @@
   "name": "reacto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "entry.js",
   "scripts": {
-    "build": "parcel index.html",
-    "buildCustom": "touch bin/custom.sh && bash bin/custom.sh",
+    "build": "parcel hotpoint.html",
     "prod": "bash bin/deploy.sh",
     "clean": "cd dist && ls -a . | grep ^[a-zA-Z] | xargs rm"
   },

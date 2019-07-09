@@ -20,7 +20,6 @@ export default class ItemSelector extends React.Component {
     }
 
     render() {
-
         return (
             <Panel style={{height: '100%'}}>
                 {this.renderSearch()}

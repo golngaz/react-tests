@@ -1,7 +1,13 @@
 #!/bin/bash
 
+git add . # sécurité
 cd dist
-ls -a . | grep ^[a-zA-Z] | xargs rm
+# @todo ne pas supprimer autre que ce qui est build !!!
+
+echo "vont être supprimés : "
+ls | grep -E "^.*\.(css|js|html|map)$" | cowsay
+
+ls | grep -E "^.*\.(css|js|html|map)$" | xargs rm
 
 cd ..
-/opt/node-v10.16.0-linux-x64/bin/node node_modules/.bin/parcel build index.js && mv dist/* public
+node node_modules/.bin/parcel build entry.js && cp dist/* public
