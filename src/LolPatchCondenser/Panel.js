@@ -1,8 +1,9 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import clsx from 'clsx';
 import withClass from "../HOC/withClass";
 
+
+const MyPaper = withClass('panel')(Paper)
 
 /**
  * @todo revoir bien
@@ -13,9 +14,8 @@ import withClass from "../HOC/withClass";
 
  return <WithClassPanel {...others} />
  */
-export default class Panel extends React.Component {
-    render() {
-        const {className, ...others} = this.props;
-        return <Paper className={clsx('panel', className)} {...others} />
-    }
+const Panel = (props) => {
+    return <MyPaper {...props} />
 }
+
+export default Panel

@@ -11,9 +11,9 @@ const withClass = (customClassName) => (Component) => {
         }
 
         render() {
-            const {children, className, ...others} = this.props
+            const {className, ...others} = this.props
 
-            return <Component className={clsx(customClassName, className)} {...others}>{children || 'Valider'}</Component>
+            return <Component className={clsx(customClassName, className)} {...others} />
         }
     }
 }
