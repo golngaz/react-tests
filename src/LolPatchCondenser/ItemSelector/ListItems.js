@@ -5,6 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import withClass from "../../HOC/withClass";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import PropTypes from "prop-types";
 
 export default class ListItems extends React.Component {
     constructor(props) {
@@ -30,4 +31,8 @@ export default class ListItems extends React.Component {
     onClick(item) {
         this.props.onSelect && this.props.onSelect(item)
     }
+}
+
+ListItems.propTypes = {
+    onSelect: PropTypes.func
 }

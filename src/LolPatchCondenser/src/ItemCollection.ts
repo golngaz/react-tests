@@ -2,11 +2,10 @@ import Item from "./Item";
 
 export default class ItemCollection
 {
-    private items: Array<Item>;
+    private readonly items: Array<Item>;
 
     constructor(items: Array<Item> = [])
     {
-        // @todo restaurer le fonctionnement du loading en dehors du métier
         this.items = items
     }
 

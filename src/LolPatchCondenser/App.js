@@ -17,6 +17,7 @@ export default class App extends React.Component {
 
         this.state = {
             items: new ItemCollection(),
+            itemToConfigure: null
         }
     }
 
@@ -35,6 +36,10 @@ export default class App extends React.Component {
         return new ItemCollection(items);
     }
 
+    onSelectedItem(item) {
+        this.setState({items : this.state.items.popSlice(item), itemToConfigure: item})
+    }
+
     render() {
         return (
             <div id="content">
@@ -45,7 +50,7 @@ export default class App extends React.Component {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Panel>
-                                            <Configurator />
+                                            <Configurator item={this.state.itemToConfigure}/>
                                         </Panel>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -61,9 +66,5 @@ export default class App extends React.Component {
                 </Container>
             </div>
         )
-    }
-
-    onSelectedItem(item) {
-        this.setState({items : this.state.items.popSlice(item)})
     }
 }

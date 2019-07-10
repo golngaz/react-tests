@@ -9,6 +9,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import PropTypes from "prop-types";
+import ItemCollection from "../src/ItemCollection";
 
 export default class ItemSelector extends React.Component {
     constructor(props) {
@@ -19,8 +21,8 @@ export default class ItemSelector extends React.Component {
         this.nbByPage = 10
     }
 
-    static getNbPage(nbItems, nbByPage) {
-        let div = nbItems / nbByPage;
+    getNbPage() {
+        let div = this.itemsFiltered().length() / this.nbByPage;
         let floor = Math.floor(div);
 
         return floor + (div > floor ? 0 : -1)
@@ -37,8 +39,12 @@ export default class ItemSelector extends React.Component {
      */
     itemsFiltered() {
         let search = this.state.search.toLowerCase();
+
+        let searchFilter = (item) => item.name.toLocaleLowerCase().indexOf(search) !== -1 || item.keywords.some((keyword) => keyword.indexOf(search) !== -1)
+        let typeFilter = (item) => this.state.type === 'all' || this.state.type === item.type
+
         return this.props.items.filter((item) => {
-            return (item.name.toLocaleLowerCase().indexOf(search) !== -1 || item.keywords.some((keyword) => keyword.indexOf(search) !== -1)) && (this.state.type === 'all' || this.state.type === item.type)
+            return searchFilter(item) && typeFilter(item)
         })
     }
 
@@ -47,7 +53,7 @@ export default class ItemSelector extends React.Component {
     }
 
     increasePage() {
-        if (this.state.page + 1 > ItemSelector.getNbPage(this.itemsFiltered().length(), this.nbByPage)) {
+        if (this.state.page + 1 > this.getNbPage()) {
             return
         }
 
@@ -86,7 +92,7 @@ export default class ItemSelector extends React.Component {
                         <InputLabel>Type</InputLabel>
                         <Select
                             value={this.state.type}
-                            onChange={(e) => this.setState({type: e.target.value})}
+                            onChange={(e) => {this.setState({type: e.target.value, page: 0})}}
                             name="age"
                         >
                             <MenuItem value="all">Tous</MenuItem>
@@ -107,7 +113,7 @@ export default class ItemSelector extends React.Component {
                     <Button onClick={() => this.decreasePage()}>{'<'}</Button>
                 </Grid>
                 <Grid item xs={2}>
-                    <Input value={this.state.page} className="input-page" onChange={(e) => this.changePage(e.currentTarget.value)}/>
+                    <Input value={this.state.page} className="input-page" onChange={(e) => this.changePage(parseInt(e.target.value))}/>
                 </Grid>
                 <Grid item xs={2}>
                     <Button onClick={() => this.increasePage()}>{'>'}</Button>
@@ -115,4 +121,8 @@ export default class ItemSelector extends React.Component {
             </Grid>
         )
     }
+}
+
+ListItems.propTypes = {
+    items: PropTypes.instanceOf(ItemCollection)
 }

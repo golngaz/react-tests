@@ -1,12 +1,60 @@
 import React from "react";
-import Panel from "./Panel";
+import {Grid} from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import TextField from "@material-ui/core/TextField";
 
 export default class Configurator extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {description: ''}
+    }
+
     render() {
         return (
-            <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien velit, aliquet eget commodo nec, auctor a sapien. Nam eu neque vulputate diam rhoncus faucibus. Curabitur quis varius libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat sem at mauris suscipit porta. Cras metus velit, elementum sed pellentesque a, pharetra eu eros. Etiam facilisis placerat euismod. Nam faucibus neque arcu, quis accumsan leo tincidunt varius. In vel diam enim. Sed id ultrices ligula. Maecenas at urna arcu. Sed quis nulla sapien. Nam felis mauris, tincidunt at convallis id, tempor molestie libero. Quisque viverra sollicitudin nisl sit amet hendrerit. Etiam sit amet arcu sem. Morbi eu nibh condimentum, interdum est quis, tempor nisi. Vivamus convallis erat in pharetra elementum. Phasellus metus neque, commodo vitae venenatis sed, pellentesque non purus. Pellentesque egestas convallis suscipit. Ut luctus, leo quis porta vulputate, purus purus pellentesque ex, id consequat mi nisl quis eros. Integer ornare libero quis risus fermentum consequat. Mauris pharetra odio sagittis, vulputate magna at, lobortis nulla. Proin efficitur, nisi vel finibus elementum, orci sem volutpat eros, eget ultrices velit mi.
-            </div>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    {this.props.item ? this.renderCard() : ''}
+                </Grid>
+            </Grid>
+        )
+    }
+
+    renderCard() {
+        return (
+            <Card>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        <Avatar src={this.props.item.img} />
+                        <span>{this.props.item.name}</span>
+                    </Typography>
+                    <Grid container>
+                        <Grid xs={12}>
+                            <TextField
+                                id="outlined-multiline-flexible"
+                                className="description-editor"
+                                label="Description du buff/nerf"
+                                multiline
+                                rowsMax="4"
+                                value={this.state.description}
+                                onChange={(e) => this.setState({description: e.target.value})}
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                    </Grid>
+                </CardContent>
+                <CardActions>
+                    <Button size="small" color="primary">Ajouter</Button>
+                    <Button size="small" color="secondary">Annuler</Button>
+                </CardActions>
+            </Card>
         )
     }
 }
