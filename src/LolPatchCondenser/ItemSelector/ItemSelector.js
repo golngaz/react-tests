@@ -39,7 +39,7 @@ export default class ItemSelector extends React.Component {
         this.setState({search: search, page: 0})
 
         if (search === 'glados') {
-            this.bus.publish('error.raised', {message: 'the cake is a lie'})
+            this.bus.publish('notify', {message: 'the cake is a lie', type: 'info'})
         }
     }
 

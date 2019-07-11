@@ -11,11 +11,7 @@ import axios from 'axios'
 import Item from './src/Item'
 import ItemCollection from './src/ItemCollection'
 import Bus from './src/Bus'
-import IconButton from '@material-ui/core/IconButton'
-import Snackbar from '@material-ui/core/Snackbar'
-import Slide from '@material-ui/core/Slide'
-import Close from '@material-ui/icons/Close'
-import ErrorIcon from '@material-ui/icons/Error'
+import Notif from './Notif'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -24,7 +20,7 @@ export default class App extends React.Component {
         this.state = {
             items: new ItemCollection(),
             itemToConfigure: null,
-            error: false
+            notifs: []
         }
 
         this.bus = new Bus
@@ -33,11 +29,17 @@ export default class App extends React.Component {
     componentDidMount() {
         axios.get(this.props.config.uri + 'data.json')
             .then((response) => this.setState({items: this.initItems(response.data)}))
-            .catch(() => {
-                this.setState({items: this.initItems([{id: 1, name: 'error', img: 'https://bit.ly/2JpL7oJ'}])})
-            })
+            .catch(() => this.addNotif('La liste d\'items et de champions n\'a pas pu se charger', 'error'))
 
-        this.bus.subscribe('error.raised', (error) => this.setState({error: error}))
+        this.bus.subscribe('notify', (error) => this.addNotif(error.message, error.type))
+    }
+
+    addNotif(message, type = 'info') {
+        let newNotifs = this.state.notifs.slice()
+
+        newNotifs.push({type: type, message: message})
+
+        this.setState({notifs: newNotifs})
     }
 
     initItems(data) {
@@ -57,10 +59,18 @@ export default class App extends React.Component {
         this.setState({items : newItems, itemToConfigure: item})
     }
 
+    onCloseNotif() {
+        let newNotifs = this.state.notifs.slice()
+
+        newNotifs.shift()
+
+        this.setState({notifs : newNotifs})
+    }
+
     render() {
         return (
             <div id="content">
-                {this.renderError()}
+                <Notif notifs={this.state.notifs} onClose={() => this.onCloseNotif()} />
                 <Container className="container">
                     <Panel className="panel-main">
                         <Grid container spacing={3} alignItems="stretch">
@@ -83,31 +93,6 @@ export default class App extends React.Component {
                     </Panel>
                 </Container>
             </div>
-        )
-    }
-
-    renderError() {
-        function CustomSlide(props) {return <Slide {...props} style={{backgroundColor: '#d32f2f'}} direction="down" />}
-
-        return (
-            <Snackbar
-                onClose={() => {this.setState({error: false})}}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={!!this.state.error}
-                TransitionComponent={CustomSlide}
-                ContentProps={{
-                    'aria-describedby': 'message-id',
-                }}
-                autoHideDuration={5000}
-                message={<span style={{display: 'flex', alignItems: 'center'}} id="message-id">
-                    <ErrorIcon /><span style={{paddingLeft: '10px'}}>{this.state.error && this.state.error.message || ''}</span>
-                </span>}
-                action={[
-                    <IconButton key="close" aria-label="Close" color="inherit">
-                        <Close />
-                    </IconButton>,
-                ]}
-            />
         )
     }
 }

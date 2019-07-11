@@ -11,15 +11,20 @@ import ItemCollection from '../src/ItemCollection'
 export default class ListItems extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {timeout: false}
     }
 
+    componentDidMount() {
+        setTimeout(() => this.setState({timeout: true}),5000)
+    }
 
     render() {
         const ListItemAvatarResized = withClass('list-item-icon')(ListItemAvatar)
 
         return (
             <List component="nav" aria-label="Mailbox folders">
-                {this.props.items.isEmpty() ? (this.props.isLoading ? <CircularProgress /> : '') : this.props.items.map((item) => {return (
+                {this.props.items.isEmpty() ? (this.props.isLoading && !this.state.timeout ? <CircularProgress /> : '') : this.props.items.map((item) => {return (
                     <ListItem className="item-button-selector" onClick={() => this.onClick(item)} key={item.id} button>
                         <ListItemAvatarResized><img src={item.img} alt="" /></ListItemAvatarResized>
                         <ListItemText>{item.label}</ListItemText>
