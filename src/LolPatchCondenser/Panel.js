@@ -1,6 +1,6 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import withClass from "../HOC/withClass";
+import React from 'react'
+import Paper from '@material-ui/core/Paper'
+import withClass from '../HOC/withClass'
 
 
 const MyPaper = withClass('panel')(Paper)

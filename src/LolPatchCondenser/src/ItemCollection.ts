@@ -1,8 +1,8 @@
-import Item from "./Item";
+import Item from './Item'
 
 export default class ItemCollection
 {
-    private readonly items: Array<Item>;
+    private readonly items: Array<Item>
 
     constructor(items: Array<Item> = [])
     {
@@ -45,6 +45,30 @@ export default class ItemCollection
 
     paginate(page: number = 0, nbByPages: number = 14): ItemCollection
     {
-        return new ItemCollection(this.items.slice(page * nbByPages, (page * nbByPages) + nbByPages))
+        let chunk = page * nbByPages
+
+        return new ItemCollection(this.items.slice(chunk, chunk + nbByPages))
+    }
+
+    /**
+     * Trie la collection actuelle sans renvoyer de nouvelle instance
+     */
+    sortByName(): this
+    {
+        this.items.sort((item: Item, itemNext: Item) => {
+            const a = item.name.toLowerCase()
+            const b = itemNext.name.toLowerCase()
+
+            return a > b ? 1 : (a < b ? -1 : 0)
+        })
+
+        return this
+    }
+
+    push(item: Item): this
+    {
+        this.items.push(item)
+
+        return this
     }
 }

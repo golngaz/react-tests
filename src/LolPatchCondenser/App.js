@@ -8,8 +8,14 @@ import Configurator from './Configurator'
 import Result from './Result'
 import ItemSelector from './ItemSelector/ItemSelector'
 import axios from 'axios'
-import Item from "./src/Item.ts";
-import ItemCollection from "./src/ItemCollection.ts";
+import Item from './src/Item'
+import ItemCollection from './src/ItemCollection'
+import Bus from './src/Bus'
+import IconButton from '@material-ui/core/IconButton'
+import Snackbar from '@material-ui/core/Snackbar'
+import Slide from '@material-ui/core/Slide'
+import Close from '@material-ui/icons/Close'
+import ErrorIcon from '@material-ui/icons/Error'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -17,8 +23,11 @@ export default class App extends React.Component {
 
         this.state = {
             items: new ItemCollection(),
-            itemToConfigure: null
+            itemToConfigure: null,
+            error: false
         }
+
+        this.bus = new Bus
     }
 
     componentDidMount() {
@@ -27,6 +36,8 @@ export default class App extends React.Component {
             .catch(() => {
                 this.setState({items: this.initItems([{id: 1, name: 'error', img: 'https://bit.ly/2JpL7oJ'}])})
             })
+
+        this.bus.subscribe('error.raised', (error) => this.setState({error: error}))
     }
 
     initItems(data) {
@@ -37,12 +48,19 @@ export default class App extends React.Component {
     }
 
     onSelectedItem(item) {
-        this.setState({items : this.state.items.popSlice(item), itemToConfigure: item})
+        let newItems = this.state.items.popSlice(item)
+
+        if (this.state.itemToConfigure) {
+            newItems.push(this.state.itemToConfigure)
+        }
+
+        this.setState({items : newItems, itemToConfigure: item})
     }
 
     render() {
         return (
             <div id="content">
+                {this.renderError()}
                 <Container className="container">
                     <Panel className="panel-main">
                         <Grid container spacing={3} alignItems="stretch">
@@ -59,12 +77,37 @@ export default class App extends React.Component {
                                 </Grid>
                             </Grid>
                             <Grid className="items" item xs={5}>
-                                <ItemSelector items={this.state.items} onSelect={(item) => this.onSelectedItem(item)}/>
+                                <ItemSelector bus={this.bus} items={this.state.items} onSelect={(item) => this.onSelectedItem(item)}/>
                             </Grid>
                         </Grid>
                     </Panel>
                 </Container>
             </div>
+        )
+    }
+
+    renderError() {
+        function CustomSlide(props) {return <Slide {...props} style={{backgroundColor: '#d32f2f'}} direction="down" />}
+
+        return (
+            <Snackbar
+                onClose={() => {this.setState({error: false})}}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={!!this.state.error}
+                TransitionComponent={CustomSlide}
+                ContentProps={{
+                    'aria-describedby': 'message-id',
+                }}
+                autoHideDuration={5000}
+                message={<span style={{display: 'flex', alignItems: 'center'}} id="message-id">
+                    <ErrorIcon /><span style={{paddingLeft: '10px'}}>{this.state.error && this.state.error.message || ''}</span>
+                </span>}
+                action={[
+                    <IconButton key="close" aria-label="Close" color="inherit">
+                        <Close />
+                    </IconButton>,
+                ]}
+            />
         )
     }
 }

@@ -1,10 +1,10 @@
 export default class Item {
-    private readonly id: number;
-    private readonly name: String;
-    private readonly img: String;
-    private readonly label: String;
-    private readonly keywords: Array<String>;
-    private readonly type?: String;
+    public readonly id: number
+    public readonly name: String
+    public readonly img: String
+    public readonly label: String
+    public readonly keywords: Array<String>
+    public readonly type?: String
 
     constructor(id: number, name: String, img: String = '', label: String = '', type: 'champion'|'item' = 'item', keywords: Array<String> = [])
     {

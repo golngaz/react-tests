@@ -1,5 +1,5 @@
-import React from "react";
-import Panel from "./Panel";
+import React from 'react'
+import Panel from './Panel'
 
 export default class Result extends React.Component {
     render() {

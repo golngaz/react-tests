@@ -1,20 +1,23 @@
-import React from "react";
-import Panel from "../Panel";
-import ListItems from "./ListItems";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import Grid from "@material-ui/core/Grid";
-import SearchIcon from '@material-ui/icons/Search';
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import PropTypes from "prop-types";
-import ItemCollection from "../src/ItemCollection";
+import React from 'react'
+import Panel from '../Panel'
+import ListItems from './ListItems'
+import Button from '@material-ui/core/Button'
+import Input from '@material-ui/core/Input'
+import Grid from '@material-ui/core/Grid'
+import SearchIcon from '@material-ui/icons/Search'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import PropTypes from 'prop-types'
+import ItemCollection from '../src/ItemCollection'
+import NullBus from '../src/NullBus'
 
 export default class ItemSelector extends React.Component {
     constructor(props) {
         super(props)
+
+        this.bus = this.props.bus ? this.props.bus : new NullBus
 
         this.state = {page: 0, search: '', type: 'all'}
 
@@ -30,6 +33,14 @@ export default class ItemSelector extends React.Component {
 
     onSelect(item) {
         this.props.onSelect && this.props.onSelect(item)
+    }
+
+    onSearch(search) {
+        this.setState({search: search, page: 0})
+
+        if (search === 'glados') {
+            this.bus.publish('error.raised', {message: 'the cake is a lie'})
+        }
     }
 
     /**
@@ -72,7 +83,11 @@ export default class ItemSelector extends React.Component {
         return (
             <Panel style={{height: '100%'}}>
                 {this.renderSearch()}
-                <ListItems onSelect={(item) => this.onSelect(item)} items={this.itemsFiltered().paginate(this.state.page, this.nbByPage)} />
+                <ListItems
+                    isLoading={this.props.items.isEmpty()}
+                    onSelect={(item) => this.onSelect(item)}
+                    items={this.itemsFiltered().sortByName().paginate(this.state.page, this.nbByPage)}
+                    />
                 {this.renderPagination()}
             </Panel>
         )
@@ -85,7 +100,7 @@ export default class ItemSelector extends React.Component {
                     <SearchIcon />
                 </Grid>
                 <Grid item xs={7}>
-                    <Input className="search-item" onChange={(e) => this.setState({search: e.currentTarget.value, page: 0})}/>
+                    <Input className="search-item" onChange={(e) => this.onSearch(e.currentTarget.value)}/>
                 </Grid>
                 <Grid item xs={4} style={{textAlign: 'center'}}>
                     <FormControl style={{margin: '-16px'}}>
@@ -124,5 +139,5 @@ export default class ItemSelector extends React.Component {
 }
 
 ListItems.propTypes = {
-    items: PropTypes.instanceOf(ItemCollection)
+    items: PropTypes.instanceOf(ItemCollection),
 }
