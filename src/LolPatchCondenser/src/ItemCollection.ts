@@ -9,6 +9,11 @@ export default class ItemCollection
         this.items = items
     }
 
+    slice(...parameters)
+    {
+        return new ItemCollection(this.items.slice(...parameters))
+    }
+
     has(itemToHas: Item): boolean
     {
         return this.items.some((item: Item) => itemToHas.is(item))

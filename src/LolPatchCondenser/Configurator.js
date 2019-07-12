@@ -7,12 +7,18 @@ import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 import Avatar from '@material-ui/core/Avatar'
 import TextField from '@material-ui/core/TextField'
+import PropTypes from 'prop-types'
+import PatchLine, {PatchLineValue} from './src/PatchLine'
+import Item from './src/Item'
 
 export default class Configurator extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {description: ''}
+        this.state = {
+            description: '',
+            valuePatchLine: PatchLineValue.BALANCE,
+        }
     }
 
     render() {
@@ -23,6 +29,14 @@ export default class Configurator extends React.Component {
                 </Grid>
             </Grid>
         )
+    }
+
+    /**
+     * @todo appeller cet objet plutot 'buff' ?
+     * Fabrique un objet Result à partir de l'item et des données du form
+     */
+    createResultFromState() {
+        return new PatchLine(this.props.item.name, this.state.valuePatchLine, this.props.item.img, this.props.item.description)
     }
 
     renderCard() {
@@ -50,10 +64,21 @@ export default class Configurator extends React.Component {
                     </Grid>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" color="primary">Ajouter</Button>
-                    <Button size="small" color="secondary">Annuler</Button>
+                    <Button onClick={() => this.props.onSave(this.createResultFromState())} size="small" color="primary">Ajouter</Button>
+                    <Button onClick={this.props.onCancel} size="small" color="secondary">Annuler</Button>
                 </CardActions>
             </Card>
         )
     }
+}
+
+Configurator.defaultProps = {
+    onCancel: () => {},
+    onSave: () => {},
+}
+
+Configurator.propTypes = {
+    onCancel: PropTypes.func,
+    onSave: PropTypes.func,
+    item: PropTypes.instanceOf(Item),
 }
