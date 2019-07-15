@@ -10,7 +10,7 @@ import ItemSelector from './ItemSelector/ItemSelector'
 import axios from 'axios'
 import Item from './src/Item'
 import ItemCollection from './src/ItemCollection'
-import Bus from './src/Bus'
+import Bus from './src/Bus/Bus'
 import Notif from './Notif'
 
 export default class App extends React.Component {
@@ -20,6 +20,7 @@ export default class App extends React.Component {
         this.state = {
             items: new ItemCollection(),
             itemToConfigure: null,
+            patch: [],
             notifs: []
         }
 
@@ -78,11 +79,20 @@ export default class App extends React.Component {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Panel>
-                                            <Configurator item={this.state.itemToConfigure}/>
+                                            <Configurator
+                                                onCancel={() => this.setState({items: this.state.items.slice().push(this.state.itemToConfigure), itemToConfigure: null})}
+                                                onSave={(patchLine) => {
+                                                    const newPatchLine = this.state.patch.slice()
+                                                    newPatchLine.push(patchLine)
+
+                                                    this.setState({patch: newPatchLine, itemToConfigure: null})
+                                                }}
+                                                item={this.state.itemToConfigure}
+                                                />
                                         </Panel>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Result />
+                                        <Result value={this.state.patch}/>
                                     </Grid>
                                 </Grid>
                             </Grid>
